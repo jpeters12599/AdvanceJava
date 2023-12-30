@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -151,6 +152,12 @@ public class ReservationResource {
             long reservationId) {
 
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(path = "/welcome-messages", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<String>> getWelcomeMessages() {
+        List<String> welcomeMessages = new ArrayList<>();
+        return new ResponseEntity<>(welcomeMessages, HttpStatus.OK);
     }
 
 }

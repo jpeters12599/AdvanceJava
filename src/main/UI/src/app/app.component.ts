@@ -4,35 +4,41 @@ import {HttpClient, HttpResponse,HttpHeaders} from "@angular/common/http";
 import { Observable } from 'rxjs';
 import {map} from "rxjs/operators";
 
-
-
-
+interface WelcomeMessageResponse {
+  messages: string[];
+}
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
-  constructor(private httpClient:HttpClient){}
+  WelcomeEnglish$!: Observable<string>
+  WelcomeFrench$!: Observable<string>
+  constructor(private httpClient: HttpClient) {
+  }
 
-  private baseURL:string='http://localhost:8080';
+  private baseURL: string = 'http://localhost:8080';
 
-  private getUrl:string = this.baseURL + '/room/reservation/v1/';
-  private postUrl:string = this.baseURL + '/room/reservation/v1';
-  public submitted!:boolean;
-  roomsearch! : FormGroup;
-  rooms! : Room[];
-  request!:ReserveRoomRequest;
-  currentCheckInVal!:string;
-  currentCheckOutVal!:string;
+  private getUrl: string = this.baseURL + '/room/reservation/v1/';
+  private postUrl: string = this.baseURL + '/room/reservation/v1';
+  public submitted!: boolean;
+  roomsearch!: FormGroup;
+  rooms!: Room[];
+  request!: ReserveRoomRequest;
+  currentCheckInVal!: string;
+  currentCheckOutVal!: string;
 
-    ngOnInit(){
-      this.roomsearch= new FormGroup({
-        checkin: new FormControl(' '),
-        checkout: new FormControl(' ')
-      });
+  ngOnInit() {
+
+    this.WelcomeFrench$ = this.httpClient.get(this.baseURL + '/welcome?lang=fr-CA', {responseType: 'text'} )
+    this.WelcomeEnglish$ = this.httpClient.get(this.baseURL + '/welcome?lang=en-US', {responseType: 'text'} )
+    this.roomsearch = new FormGroup({
+      checkin: new FormControl(' '),
+      checkout: new FormControl(' ')
+    });
 
  //     this.rooms=ROOMS;
 
