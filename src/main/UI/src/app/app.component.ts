@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
 
   WelcomeEnglish$!: Observable<string>
   WelcomeFrench$!: Observable<string>
+  presentationTimes$!: Observable<string>
   constructor(private httpClient: HttpClient) {
   }
 
@@ -35,6 +36,7 @@ export class AppComponent implements OnInit {
 
     this.WelcomeFrench$ = this.httpClient.get(this.baseURL + '/welcome?lang=fr-CA', {responseType: 'text'} )
     this.WelcomeEnglish$ = this.httpClient.get(this.baseURL + '/welcome?lang=en-US', {responseType: 'text'} )
+    this.presentationTimes$ = this.httpClient.get(this.baseURL + "/presentation", {responseType: "text"})
     this.roomsearch = new FormGroup({
       checkin: new FormControl(' '),
       checkout: new FormControl(' ')
