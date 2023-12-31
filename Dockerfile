@@ -1,6 +1,6 @@
-FROM node:18-alpine
+FROM openjdk
+MAINTAINER baeldung.com
+COPY target/D387_sample_code-0.0.2-SNAPSHOT.jar app.jar
 WORKDIR /app
-COPY . .
-RUN yarn install --production
-CMD ["node", "src/index.js"]
-EXPOSE 3000
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/app.jar"]
